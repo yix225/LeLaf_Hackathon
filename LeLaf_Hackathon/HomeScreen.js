@@ -14,7 +14,7 @@ const HomeScreen = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Community')}
+        onPress={() => navigation.navigate('Communities')}
       >
         <Text style={styles.buttonText}>Go to Community Screen</Text>
       </TouchableOpacity>

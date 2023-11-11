@@ -1,4 +1,4 @@
-// OtherScreen.js
+// Users can click + button to add a new post within this community
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
