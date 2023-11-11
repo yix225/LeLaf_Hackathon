@@ -148,6 +148,17 @@ def register():
         #     })
 
 
+
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    new_user = User(username,password,users_repository.next_index())
+    users_repository.save_user(new_user)
+    return Response("Registered Sucessfully")
+
+
 @app.route('/profile/<userId>')
 @login_required
 def profile(userId):
@@ -184,4 +195,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=3000, debug =True)
+    app.run(host='172.20.10.2', port=3000, debug =True)

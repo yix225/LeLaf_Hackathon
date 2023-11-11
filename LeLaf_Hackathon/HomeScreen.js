@@ -8,7 +8,7 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.title}>Home Screen</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Login')}
+        onPress={() => navigation.navigate('Signup')}
       >
         <Text style={styles.buttonText}>Go to Login Screen</Text>
       </TouchableOpacity>
