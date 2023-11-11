@@ -3,7 +3,7 @@ pip install Flask
 pip install flask-login
 
 # info
-
+python3 App.py
 
 # functionality
 1. login
