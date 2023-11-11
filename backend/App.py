@@ -10,11 +10,12 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 class User(UserMixin):
-    def __init__(self , username , password , id , active=True):
+    def __init__(self , username , password , id , active=True, email=None):
         self.id = id
         self.username = username
         self.password = password
         self.active = active
+        self.email = email
 
     def get_id(self):
         return self.id
@@ -24,6 +25,22 @@ class User(UserMixin):
 
     def get_auth_token(self):
         return make_secure_token(self.username , key='secret_key')
+    
+    def get_username(self):
+        return self.username
+    
+    def get_userInfo(self):
+        return {
+            'username': self.username,
+            'id': self.id,
+            'active': self.active,
+            'email': self.email
+        }
+    
+    def get_posts(self):
+        return self.posts
+    
+
 
 
 class UsersRepository:
@@ -63,15 +80,6 @@ def home():
     return Response(
         '''
             <h1>Home Page</h1>
-        '''
-        )
-
-@app.route('/profile')
-# @login_required
-def profile():
-    return Response(
-        '''
-            <h1>Profile Page</h1>
         '''
         )
 
@@ -131,6 +139,22 @@ def register():
         #         ],
         #         "submit": {"type": "submit", "value": "Register"}
         #     })
+
+
+@app.route('/profile/<userId>')
+@login_required
+def profile(userId):
+    print('Profile...')
+    profile = users_repository.get_user_by_id(userId)
+    if profile is None:
+        return Response('<p>Profile Design</p>')
+    else:
+        return Response(
+        '''
+            <h1>Profile Page</h1>
+        '''
+        )
+    
 
 @app.route('/logout')
 @login_required
