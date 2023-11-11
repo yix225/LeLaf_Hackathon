@@ -1,6 +1,6 @@
 // A screen with different tabs on the left. Each tab opens up a forum post/text post section. 
 import React from 'react';
-import { View, Text, StyleSheet, Button, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 
 
@@ -69,9 +69,17 @@ const DATA = [
 ];
 
 
-const Item = ({title}) => (
+const Item = ({title}, {navigation}) => (
   <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
+
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate('Post')}
+      >
+        <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+
+
   </View>
 );
 
