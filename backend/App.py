@@ -8,14 +8,21 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+class Post:
+    def __init__(self , id , content , postId, comments=[]):
+        self.id = id
+        self.content = content
+        self.postId = postId
+        self.comments = comments
 
 class User(UserMixin):
-    def __init__(self , username , password , id , active=True, email=None):
+    def __init__(self , username , password , id , active=True, email=None, posts=[]):
         self.id = id
         self.username = username
         self.password = password
         self.active = active
         self.email = email
+        self.posts = []
 
     def get_id(self):
         return self.id
