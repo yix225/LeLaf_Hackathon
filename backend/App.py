@@ -84,98 +84,152 @@ class PostsRepository:
             return self.posts
         
         def get_family_posts(self, user):
-            posts = []
+            # check if type == family
+            # if yes, add to posts list
+            # return posts list
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
+
             for post in self.posts.values():
                 if post.types == 'family':
                     posts.append(post)
             return posts
-        
+
+            
         def get_relationship_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'relationship':
                     posts.append(post)
             return posts
         
         def get_career_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'career':
                     posts.append(post)
             return posts
         
         def get_personal_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'personal':
                     posts.append(post)
             return posts
         
         def get_finance_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'finance':
                     posts.append(post)
             return posts
         
         def get_lafayette_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lafayette':
                     posts.append(post)
             return posts
         
         def get_northampton_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'northampton':
                     posts.append(post)
             return posts
         
         def get_lehigh_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lehigh':
                     posts.append(post)
             return posts
         
         def get_moravian_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'moravian':
                     posts.append(post)
             return posts
         
         def get_cedar_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'cedar':
                     posts.append(post)
             return posts
         
         def get_lehigh_carbon_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lehigh_carbon':
                     posts.append(post) 
             return posts
 
         def get_kutztown_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'kutztown':
                     posts.append(post)
             return posts
         
         def get_desales_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'desales':
                     posts.append(post)
             return posts
         
         def get_muhlenberg_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'muhlenberg':
                     posts.append(post)
@@ -458,7 +512,7 @@ def addPost(types):
             posts_repository.save_post(new_post)
 
             print('Post Added Successfully')
-            return Response("Post Added Successfully")
+            return jsonify(new_post.to_post())
         except Exception as e:
             print('Error:', str(e))
             return abort(500)  # Internal Server Error
@@ -499,4 +553,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-    app.run(host='172.20.10.7', port=3000, debug =True)
+    app.run(host='172.20.10.11', port=3000, debug =True)
