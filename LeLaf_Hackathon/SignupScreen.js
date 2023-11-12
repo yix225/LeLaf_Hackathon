@@ -13,7 +13,7 @@ const SignupScreen = ({ navigation }) => {
   const handleSignup = async () => {
       console.log(username);
       console.log(password);
-      axios.post('http://172.20.10.11:3000/signup', {
+      axios.post('http://172.20.10.7:3000/signup', {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {

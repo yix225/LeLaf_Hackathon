@@ -13,14 +13,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 //should receive a string of posts or so
 //there should be a point when a idea is added that makes it into a card
 // post.type
-{/* () =>
-              <Card>
-              <Card.Title>New Post</Card.Title>
-              <Card.Divider />
-              <Text>{postText}</Text>
-              </Card> */}
 
-
+//start of get posts for this type of community
 
 
 const baseUrl = 'https://api.multiavatar.com/';
@@ -42,8 +36,9 @@ const PostScreen = () => {
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
           console.log(response.data);
-          setPosts([...posts, response.data]);
-          setModalVisible(false);
+          setPosts([...posts, { id: response.data.postId, postText: response.data.content }]);
+        setModalVisible(false);
+         
           
           
           
@@ -55,10 +50,11 @@ const PostScreen = () => {
 
   const renderPosts = () => {
     return posts.map((post) => (
-      <Card >
+      
+      <Card key={post.id}>
         <Card.Title>New Post</Card.Title>
         <Card.Divider />
-        <Text>{postText}</Text>
+        <Text>{post.postText}</Text>
       </Card>
     ));
   };
@@ -86,9 +82,7 @@ const PostScreen = () => {
                 value={postText}
                 onChangeText={(text) => setPostText(text)}
               />
-            {/* <Button title= 'Post' onPress={() => 
-              console.log(postText)
-            }/> */}
+            
             <Pressable
               style={[styles.button, styles.buttonPost]}
               onPress={handlePost}>
@@ -231,7 +225,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 20,
-    right: 20,
+    right: 25,
     elevation: 3, // for Android shadow
     shadowColor: '#000', // for iOS shadow
     shadowOffset: { width: 0, height: 2 }, // for iOS shadow

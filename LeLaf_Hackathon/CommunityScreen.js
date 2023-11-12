@@ -121,6 +121,7 @@ const CommunityScreen = ({ navigation }) => {
         <TouchableOpacity
         style={styles.item}
         onPress={() => 
+          
           // axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
           // .then(response => {
           //   console.log('Response:', response.data);
@@ -128,8 +129,8 @@ const CommunityScreen = ({ navigation }) => {
           // .catch(error => {
           //   console.log(error.response.data);
           // })
-
-           navigation.navigate('Post')
+          navigation.navigate('Post')
+           
 
 
         }
@@ -147,11 +148,6 @@ const CommunityScreen = ({ navigation }) => {
       }
         keyExtractor={item => item.id}
       />
-      
-      
-        
-      
-      
     </ScrollView>
       
     </View>
