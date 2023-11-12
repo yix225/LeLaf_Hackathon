@@ -92,10 +92,10 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'family':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         def get_relationship_posts(self, user):
-           posts = dict()
+            posts = dict()
             # check if there is a post with type family
             # if yes, add to posts list
             # return posts list
@@ -103,7 +103,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'relationship':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_career_posts(self, user):
@@ -115,7 +115,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'career':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_personal_posts(self, user):
@@ -128,7 +128,8 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'personal':
-                    posts.append(post)
+                    # posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_finance_posts(self, user):
@@ -140,7 +141,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'finance':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_lafayette_posts(self, user):
@@ -152,7 +153,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'lafayette':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_northampton_posts(self, user):
@@ -164,7 +165,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'northampton':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_lehigh_posts(self, user):
@@ -173,7 +174,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'lehigh':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_moravian_posts(self, user):
@@ -182,7 +183,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'moravian':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_cedar_posts(self, user):
@@ -191,7 +192,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'cedar':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_lehigh_carbon_posts(self, user):
@@ -200,7 +201,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'lehigh_carbon':
-                    posts.append(post) 
+                    posts[post.postId] = post 
             return posts
 
         def get_kutztown_posts(self, user):
@@ -209,7 +210,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'kutztown':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_desales_posts(self, user):
@@ -218,7 +219,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'desales':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def get_muhlenberg_posts(self, user):
@@ -227,7 +228,7 @@ class PostsRepository:
                 return posts
             for post in self.posts.values():
                 if post.types == 'muhlenberg':
-                    posts.append(post)
+                    posts[post.postId] = post
             return posts
         
         def next_index(self):
@@ -548,8 +549,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    app.run(host='172.20.10.2', port=3000, debug =True)
-=======
     app.run(host='172.20.10.11', port=3000, debug =True)
->>>>>>> cab33495b40b7827e6d7fc29504660b12869998a

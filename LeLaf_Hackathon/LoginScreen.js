@@ -51,7 +51,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <Button title="Login" onPress={handleLogin} color='#300040'/>
       <Text>{message}</Text>
     </View>
   );

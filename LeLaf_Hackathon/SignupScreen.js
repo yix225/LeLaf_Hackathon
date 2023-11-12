@@ -13,7 +13,7 @@ const SignupScreen = ({ navigation }) => {
   const handleSignup = async () => {
       console.log(username);
       console.log(password);
-      axios.post('http://172.20.10.2:3000/signup', {
+      axios.post('http://172.20.10.11:3000/signup', {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
@@ -40,9 +40,9 @@ const SignupScreen = ({ navigation }) => {
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
-      <Button title="Sign Up" onPress={handleSignup} />
+      <Button title="Sign Up" onPress={handleSignup} color='#300040'/>
       <Text>{message}</Text>
-      <Button title="Go to Login" onPress={() => navigation.navigate('Login')} />
+      <Button title="Go to Login" onPress={() => navigation.navigate('Login')}color='#300040' />
     </View>
   );
 };

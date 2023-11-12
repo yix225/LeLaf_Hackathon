@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
+      <Text style={styles.title}>Connected</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Signup')}
@@ -29,11 +29,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
+    fontSize: 50,
+    marginBottom: 50,
+    fontWeight: 'bold',
+    color: 'pink',
+    textShadowColor: '#300040',
+    textShadowOffset: { width: 5, height: 1 },  // Offset of the frame
+    textShadowRadius: 3, 
+
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#300040',
+    marginBottom: 10,
     padding: 10,
     borderRadius: 5,
   },

@@ -166,17 +166,18 @@ const styles = StyleSheet.create({
     
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    height: 150,
+    backgroundColor: 'pink',
+    height: 130,
     justifyContent: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 5,
+    marginHorizontal: 10,
     padding: 0,
   },
 
 communityName:{
-  fontFamily: 'Helvetica Neue',
+  fontFamily: 'The Time News',
   fontSize: 20,
+  color: '#300040',
   justifyContent: 'center',
   
  
