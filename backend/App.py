@@ -9,74 +9,125 @@ app.config['SECRET_KEY'] = 'secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 class Post:
-    def __init__(self , id , content , postId, comments=[],type='all'):
-        self.id = id
+    def __init__(self , content , postId, comments=[],type='all'):
         self.content = content
         self.postId = postId
         self.comments = comments
         self.type = type
 
 class PostsRepository:
-    def __init__(self):
-        self.posts = dict()
-        self.posts_id_dict = dict()
-        self.identifier = 0
     
-    def save_post(self, post):
-        self.posts_id_dict.setdefault(post.id, post)
-        self.posts.setdefault(post.postId, post)
-    
-    def get_post(self, postId):
-        return self.posts.get(postId)
-    
-    def get_post_by_id(self, postid):
-        return self.posts_id_dict.get(postid)
-    
-    def get_posts(self):
-        return self.posts.values()
-    
-    def get_posts_by_user(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_following(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_career(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_education(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_health(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_entertainment(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_sports(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_politics(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_technology(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_news(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_science(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_food(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_travel(self, user):
-        return user.get_posts()
-    
-    def get_posts_by_fashion(self, user):
-        return user.get_posts()
-    
+        def __init__(self):
+            self.posts = dict()
+            self.identifier = 0
+        
+        def save_post(self, post):
+            self.posts.setdefault(post.postId, post)
+        
+        def get_post(self, postId):
+            return self.posts.get(postId)
+        
+        def get_posts(self):
+            return self.posts
+        
+        def get_family_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'family':
+                    posts.append(post)
+            return posts
+        
+        def get_relationship_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'relationship':
+                    posts.append(post)
+            return posts
+        
+        def get_career_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'career':
+                    posts.append(post)
+            return posts
+        
+        def get_personal_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'personal':
+                    posts.append(post)
+            return posts
+        
+        def get_finance_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'finance':
+                    posts.append(post)
+            return posts
+        
+        def get_lafayette_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'lafayette':
+                    posts.append(post)
+            return posts
+        
+        def get_northampton_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'northampton':
+                    posts.append(post)
+            return posts
+        
+        def get_lehigh_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'lehigh':
+                    posts.append(post)
+            return posts
+        
+        def get_moravian_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'moravian':
+                    posts.append(post)
+            return posts
+        
+        def get_cedar_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'cedar':
+                    posts.append(post)
+            return posts
+        
+        def get_lehigh_carbon_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'lehigh_carbon':
+                    posts.append(post) 
+            return posts
+
+        def get_kutztown_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'kutztown':
+                    posts.append(post)
+            return posts
+        
+        def get_desales_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'desales':
+                    posts.append(post)
+            return posts
+        
+        def get_muhlenberg_posts(self, user):
+            posts = []
+            for post in self.posts.values():
+                if post.type == 'muhlenberg':
+                    posts.append(post)
+            return posts
+        
 class User(UserMixin):
     def __init__(self , username , password , id , active=True, email=None, posts=[]):
         self.id = id
@@ -156,9 +207,6 @@ def home():
 def login():
     print('Login...')
     if request.method == 'POST':
-        # data = request.json
-        # username = data.get('username')
-        # password = data.get('password')
 
         data = request.get_data()
         print('Data '+ str(data))
@@ -198,68 +246,10 @@ def login():
         #         ],
         #         "submit": {"type": "submit", "value": "Login"}
         #     })
-    
-@app.route('/register' , methods = ['GET' , 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        new_user = User(username , password , users_repository.next_index())
-        users_repository.save_user(new_user)
-
-        registeredUser = users_repository.get_user(username)
-        print('Registered user '+ str(registeredUser))
-
-        return Response("Registered Successfully")
-    else:
-        return Response('''
-            <form action="" method="post">
-            <p><input type=text name=username placeholder="Enter username">
-            <p><input type=password name=password placeholder="Enter password">
-            <p><input type=submit value=Login>
-            </form>
-        ''')
-        # return jsonify({
-        #         "method": "post",
-        #         "inputs": [
-        #             {"type": "text", "name": "username"},
-        #             {"type": "password", "name": "password"}
-        #         ],
-        #         "submit": {"type": "submit", "value": "Register"}
-        #     })
-
-
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
     print('Signup...')
-    # try:
-    #     json_data = request.get_json()
-
-    #     # Assuming the JSON data has keys 'username' and 'password'
-    #     username = json_data.get('username')
-    #     password = json_data.get('password')
-    #     print('Username:', username)
-    #     print('Password:', password)
-
-    #     registeredUser = users_repository.get_user(username)
-    #     print('Registered user '+ str(registeredUser))
-
-    #     # Add your processing logic here
-
-    #     return jsonify({'message': 'Data processed successfully'})
-    # except Exception as e:
-    #     return jsonify({'error': str(e)}), 400
-
-
-
-    # data = request.json
-    # username = data.get('username')
-    # password = data.get('password')
-
-    # data = request.get_data()
-    # print('Data '+ str(data))
-    # password = request.get_data('password')
     json_data = request.get_json()
 
     if json_data:
@@ -309,33 +299,33 @@ def allPosts(type):
         if type == 'all':
             posts = posts_repository.get_posts()
         elif type == 'family':
-            posts = posts_repository.get_posts_by_user(current_user)
+            posts = posts_repository.get_family_posts(current_user)
         elif type == 'relationship':
-            posts = posts_repository.get_posts_by_following(current_user)
+            posts = posts_repository.get_relationship_posts(current_user)
         elif type == 'career':
-            posts = posts_repository.get_posts_by_career(current_user)
+            posts = posts_repository.get_career_posts(current_user)
         elif type == 'personal':
-            posts = posts_repository.get_posts_by_education(current_user)
+            posts = posts_repository.get_personal_posts(current_user)
         elif type == 'finance':
-            posts = posts_repository.get_posts_by_health(current_user)
+            posts = posts_repository.get_finance_posts(current_user)
         elif type == 'lafayette':
-            posts = posts_repository.get_posts_by_entertainment(current_user)
+            posts = posts_repository.get_lafayette_posts(current_user)
         elif type == 'northampton':
-            posts = posts_repository.get_posts_by_sports(current_user)
+            posts = posts_repository.get_northampton_posts(current_user)
         elif type == 'lehigh':
-            posts = posts_repository.get_posts_by_politics(current_user)
+            posts = posts_repository.get_lehigh_posts(current_user)
         elif type == 'moravian':
-            posts = posts_repository.get_posts_by_technology(current_user)
+            posts = posts_repository.get_moravian_posts(current_user)
         elif type == 'cedar':
-            posts = posts_repository.get_posts_by_news(current_user)
+            posts = posts_repository.get_cedar_posts(current_user)
         elif type == 'lehigh_carbon':
-            posts = posts_repository.get_posts_by_science(current_user)
+            posts = posts_repository.get_lehigh_carbon_posts(current_user)
         elif type == 'kutztown':
-            posts = posts_repository.get_posts_by_food(current_user)
+            posts = posts_repository.get_kutztown_posts(current_user)
         elif type == 'desales':
-            posts = posts_repository.get_posts_by_travel(current_user)
+            posts = posts_repository.get_desales_posts(current_user)
         elif type == 'muhlenberg':
-            posts = posts_repository.get_posts_by_fashion(current_user)
+            posts = posts_repository.get_muhlenberg_posts(current_user)
         else:
             return abort(404)
         return jsonify(posts)
@@ -343,15 +333,19 @@ def allPosts(type):
         return abort(404)
 
 
-@app.route('/addPost/<userId>/<postId>', methods=['POST'])
+@app.route('/addPost/<type>/<postId>', methods=['POST'])
 @login_required
-def post():
+def addPost(type):
     print('Post...')
     if request.method == 'POST':
-        data = request.json
-        content = data.get('content')
-        postId = data.get('postId')
-        new_post = Post(users_repository.next_index(), content, postId)
+        json_data = request.get_json()
+        content = json_data.get('content')
+        postId = json_data.get('postId')
+        new_post = Post(posts_repository.next_index(), content, postId, type=type)
+        posts_repository.save_post(new_post)
+        return Response("Post Added Sucessfully")
+    else:
+        return abort(404)
     
 # handle login failed
 @app.errorhandler(401)
