@@ -121,7 +121,7 @@ const CommunityScreen = ({ navigation }) => {
         <TouchableOpacity
         style={styles.item}
         onPress={() => 
-          // axios.get('http://172.20.10.7:3000/allPosts/' + item.path)
+          // axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
           // .then(response => {
           //   console.log('Response:', response.data);
           // })
@@ -129,7 +129,7 @@ const CommunityScreen = ({ navigation }) => {
           //   console.log(error.response.data);
           // })
 
-          navigation.navigate('Post')
+           navigation.navigate('Post')
 
 
         }

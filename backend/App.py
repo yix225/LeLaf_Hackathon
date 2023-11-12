@@ -59,6 +59,15 @@ class Post:
         self.comments = comments
         self.type = type
 
+    def to_post(self):
+        return {
+            'username': self.username,
+            'content': self.content,
+            'postId': self.postId,
+            'comments': self.comments,
+            'type': self.type
+        }
+
 class PostsRepository:
     
         def __init__(self):
@@ -278,6 +287,7 @@ def login():
             login_user(user_obj)
             # redirect to home page if login successful
             # return redirect(url_for('profile'))
+            # return redirect(url_for('addPost', type='all'))
             return redirect(url_for('allPosts', type='all'))
         else:
             return abort(401)
@@ -356,11 +366,15 @@ def logout():
 @app.route('/allPosts/<type>', methods=['GET'])
 #@login_required
 def allPosts(type):
+
     print('All Posts...')
+    
     if request.method == 'GET':
         posts = []
         if type == 'all':
             posts = posts_repository.get_posts()
+            # print("posts")
+            # print(posts)
         elif type == 'family':
             posts = posts_repository.get_family_posts(current_user)
         elif type == 'relationship':
@@ -391,7 +405,12 @@ def allPosts(type):
             posts = posts_repository.get_muhlenberg_posts(current_user)
         else:
             return abort(404)
-        return jsonify(posts)
+        
+        ret = [post.to_post() for post in posts]
+        print("ret" + str(ret))
+        # print(ret)
+        return jsonify(ret)
+        # return response(posts)
     else:
         return abort(404)
 
@@ -399,13 +418,28 @@ def allPosts(type):
 @app.route('/addPost/<type>', methods=['POST'])
 @login_required
 def addPost(type):
-    print('Post...')
+    print('Add Post...')
+    # print('Received POST request to /addPost/' + type)
+
     if request.method == 'POST':
-        json_data = request.get_json()
-        content = json_data.get('content')
-        new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
-        posts_repository.save_post(new_post)
-        return Response("Post Added Sucessfully")
+        # json_data = request.get_json()
+        # content = json_data.get('content')
+        # new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
+        # posts_repository.save_post(new_post)
+        # return Response("Post Added Sucessfully")
+        try:
+            json_data = request.get_json()
+            print('Received JSON data:', json_data)
+
+            content = json_data.get('content')
+            new_post = Post(postId=posts_repository.next_index(), content=content, type=type, username=current_user.username)
+            posts_repository.save_post(new_post)
+
+            print('Post Added Successfully')
+            return Response("Post Added Successfully")
+        except Exception as e:
+            print('Error:', str(e))
+            return abort(500)  # Internal Server Error
     else:
         return abort(404)
     
