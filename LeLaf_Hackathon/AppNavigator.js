@@ -22,7 +22,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="Avatar" component={AvatarScreen} />
-        <Stack.Screen name="Community" component={CommunityScreen} />
+        <Stack.Screen name="Communities" component={CommunityScreen} />
         <Stack.Screen name="Post" component={PostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
