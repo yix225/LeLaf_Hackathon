@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SERVER_URL = 'http://172.20.10.11:3000'; // Replace with your Flask server URL
+const SERVER_URL = 'http://172.20.10.2:3000'; // Replace with your Flask server URL
 const baseUrl = 'https://api.multiavatar.com/';
 
 

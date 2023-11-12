@@ -1,12 +1,14 @@
-// Card.js
+// PostCard.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Card = ({ title, content }) => {
+const PostCard = ({ username, content, postId, comments, types }) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>title</Text>
-      <Text>{content}</Text>
+      <Text>{`Post ID: ${postId}`}</Text>
+      <Text>{`Username: ${global.USER}`}</Text>
+      <Text>{`Content: ${content}`}</Text>
+      {/* Display comments, types, or any other post details as needed */}
     </View>
   );
 };
@@ -20,11 +22,6 @@ const styles = StyleSheet.create({
     margin: 8,
     backgroundColor: '#fff',
   },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 18,
-    marginBottom: 8,
-  },
 });
 
-export default Card;
+export default PostCard;

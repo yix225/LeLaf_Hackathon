@@ -4,8 +4,7 @@ import { View, TextInput, Button, StyleSheet, Text, Image,FlatList} from 'react-
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
-import Card from './Card';
-import { fetchData } from './api';
+import PostCard from './PostCard';
 const baseUrl = 'https://api.multiavatar.com/';
 
 
@@ -14,40 +13,53 @@ const baseUrl = 'https://api.multiavatar.com/';
 
 
 
-const ProfileScreen = () => {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const result = await fetchData();
-        setData(result); // assuming result is an array of objects with 'title' and 'content'
-      } catch (error) {
-        // Handle error
-      }
-    };
+// UserComponent.js
 
-    fetchDataAsync();
-  }, []);
 
+const ProfileScreen = ({}) => {
+    const navigation = useNavigation();
+    const [userData, setUserData] = useState(null);
+    const user = global.USER;
+    const { username, posts } = userData;
+
+
+    axios.get('http://172.20.10.2:3000/profile',{
+      },{ headers: { 'Content-Type': 'application/json' }})
+      .then(function (response){
+        const result = response.json();
+        setUserData(result);
+      })
+
+
+    
   return (
     <View>
-        <Avatar
+            <View>
+        <Text>{`username: ${username}`}</Text>
+        <FlatList
+            data={posts || []}
+            keyExtractor={(posts) => posts.postId.toString()}
+            renderItem={({ item }) => (
+            <Card
+                username={item.username}
+                content={item.content}
+                postId={item.postId}
+                comments={item.comments}
+                types={item.types}
+            />
+            )}
+        />
+        </View>
+       <Avatar
         size="xlarge"
         rounded
         
         source={{
           uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
         
-        containerStyle={{left:135,marginBottom:650}}
+        // containerStyle={{left:135,marginBottom:650}}
         />
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id.toString()} // adjust the key as per your data structure
-        renderItem={({ item }) => (
-          <Card title={item.title} content={item.content} />
-        )}
-      />
     </View>
   );
 };
