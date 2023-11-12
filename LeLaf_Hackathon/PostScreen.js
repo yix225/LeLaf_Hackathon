@@ -10,22 +10,28 @@ import { Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-//should receive a string of posts or so
-//there should be a point when a idea is added that makes it into a card
-// post.type
-
-//start of get posts for this type of community
+//community type should be displayed somewhere on screen along with the previous posts we pull
 
 
 const baseUrl = 'https://api.multiavatar.com/';
 
 
 
-const PostScreen = () => {
+const PostScreen = ({route }) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState([]);
+
+  // //initial posts
+  //  useEffect(() => {
+  //   // Access the passed parameter
+  //   const postData = route.params?.postData;
+  //   if (postData) {
+  //     // Use the postData to update the state or perform other actions
+  //     setPosts([...posts, { id: postData.postId, postText: postData.content }]);
+  //   }
+  // }, [route.params]);
 
   const handlePost = async () => {   
       console.log(postText);

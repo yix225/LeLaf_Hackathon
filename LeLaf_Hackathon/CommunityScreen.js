@@ -122,14 +122,15 @@ const CommunityScreen = ({ navigation }) => {
         style={styles.item}
         onPress={() => 
           
-          // axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
-          // .then(response => {
-          //   console.log('Response:', response.data);
-          // })
-          // .catch(error => {
-          //   console.log(error.response.data);
-          // })
-          navigation.navigate('Post')
+          axios.get('http://172.20.10.7:3000/allPosts/' + item.path)
+          .then(response => {
+            console.log('Response:', response.data);
+            navigation.navigate('Post')
+          })
+          .catch(error => {
+            console.log(error.response.data);
+          })
+          
            
 
 
@@ -148,6 +149,7 @@ const CommunityScreen = ({ navigation }) => {
       }
         keyExtractor={item => item.id}
       />
+
     </ScrollView>
       
     </View>
