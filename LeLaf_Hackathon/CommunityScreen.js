@@ -3,6 +3,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+
 
 // axios.get('http://172.20.10.7:3000/allPosts/' + item.path)
 //           .then(response => {
@@ -40,62 +42,62 @@ const DATA = [
   {
     id: '3',
     title: 'Personal',
-    path: 'all',
+    path: 'personal',
   },
   {
     id: '4',
     title: 'Home Sick',
-    path: 'all',
+    path: 'home_sick',
   },
   {
     id: '11',
     title: 'Financial',
-    path: 'all',
+    path: 'financial',
   },
   {
     id: '5',
     title: 'Lehigh University',
-    path: 'all',
+    path: 'lehigh',
   },
   {
     id: '6',
     title: 'Lafayette College',
-    path: 'all',
+    path: 'lafayette',
   },
   {
     id: '7',
     title: 'Northampton Community College',
-    path: 'all',
+    path: 'northampton',
   },
   {
     id: '8',
     title: 'Muhlenberg College',
-    path: 'all',
+    path: 'muhlenberg',
   },
   {
     id: '9',
     title: 'Moravian University',
-    path: 'all',
+    path: 'moravian',
   },
   {
     id: '10',
     title: 'Cedar Crest College',
-    path: 'all',
+    path: 'cedar',
   },
   {
     id: '12',
     title: 'DeSales University',
-    path: 'all',
+    path: 'desales',
   },
   {
     id: '13',
     title: 'Lehigh Carbon Community College',
-    path: 'all',
+    path: 'lehigh_carbon',
   },
   {
     id: '14',
     title: 'Kutztown University of Pennsylvania',
-    path: 'all',
+    path: 'kutztown',
   },
 
 ];
@@ -109,8 +111,9 @@ const Item = ({title}) => (
   </View>
 );
 
-const CommunityScreen = ({ navigation }) => {
-  
+const CommunityScreen = ({}) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -131,6 +134,18 @@ const CommunityScreen = ({ navigation }) => {
         .catch(error => {
           console.log(error.response.data);
         })
+        <TouchableOpacity
+        style={styles.item}
+        onPress={() => 
+          axios.get('http://172.20.10.2:3000/allPosts/' + item.path)
+          .then(response => {
+            console.log(response);
+            global.pathpls = item.path;
+            navigation.navigate('Post')
+          })
+          .catch(error => {
+            console.log(error.response.data);
+          })
 
 
       }
@@ -140,7 +155,6 @@ const CommunityScreen = ({ navigation }) => {
         >
        
       
-
 
         <Item style={styles.communityName} title={item.title} />
       </TouchableOpacity>

@@ -1,57 +1,67 @@
 // LoginScreen.js
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Image} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, StyleSheet, Text, Image,FlatList} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
-
+import PostCard from './PostCard';
 const baseUrl = 'https://api.multiavatar.com/';
 
 
 
-const ProfileScreen = () => {
+// CardList.js
+
+
+
+
+// UserComponent.js
+
+
+const ProfileScreen = ({}) => {
     const navigation = useNavigation();
-   
+    const [userData, setUserData] = useState(null);
+    const user = global.USER;
+    const { username, posts } = userData;
+
+
+    axios.get('http://172.20.10.2:3000/profile',{
+      },{ headers: { 'Content-Type': 'application/json' }})
+      .then(function (response){
+        const result = response.json();
+        setUserData(result);
+      })
+
+
+    
   return (
-    <View style={styles.container}>
-         <Avatar
+    <View>
+            <View>
+        <Text>{`username: ${username}`}</Text>
+        <FlatList
+            data={posts || []}
+            keyExtractor={(posts) => posts.postId.toString()}
+            renderItem={({ item }) => (
+            <Card
+                username={item.username}
+                content={item.content}
+                postId={item.postId}
+                comments={item.comments}
+                types={item.types}
+            />
+            )}
+        />
+        </View>
+       <Avatar
         size="xlarge"
         rounded
         
         source={{
           uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
         
-        containerStyle={{left:135,marginBottom:650}}
-      />
-     
-     
+        // containerStyle={{left:135,marginBottom:650}}
+        />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    width: 200,
-  },
-  image: {
-    width: 150, // Set your desired width
-    height: 150, // Set your desired height
-    resizeMode: 'cover', // Adjust the resizeMode as needed (cover, contain, stretch, etc.)
-    borderRadius: 8, // Add border radius if desired
-  },
-});
-
 export default ProfileScreen;
-
-
-// ... rest of the code

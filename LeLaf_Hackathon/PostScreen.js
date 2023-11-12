@@ -14,8 +14,14 @@ import { useEffect } from 'react/cjs/react.development';
 //should receive a string of posts or so
 //there should be a point when a idea is added that makes it into a card
 // post.type
+{/* () =>
+              <Card>
+              <Card.Title>New Post</Card.Title>
+              <Card.Divider />
+              <Text>{postText}</Text>
+              </Card> */}
 
-//start of get posts for this type of community
+
 
 
 const baseUrl = 'https://api.multiavatar.com/';
@@ -28,6 +34,7 @@ const PostScreen = () => {
   const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState([]);
 
+  
   const handlePost = async () => {   
       console.log(postText);
       
@@ -47,8 +54,7 @@ const PostScreen = () => {
 
   const renderPosts = () => {
     return posts.map((post) => (
-      
-      <Card key={post.id}>
+      <Card >
         <Card.Title>New Post</Card.Title>
         <Card.Divider />
         <Text>{post.content}</Text>
@@ -125,7 +131,9 @@ const PostScreen = () => {
                 value={postText}
                 onChangeText={(text) => setPostText(text)}
               />
-            
+            {/* <Button title= 'Post' onPress={() => 
+              console.log(postText)
+            }/> */}
             <Pressable
               style={[styles.button, styles.buttonPost]}
               onPress={handlePost}>
@@ -268,7 +276,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     bottom: 20,
-    right: 25,
+    right: 20,
     elevation: 3, // for Android shadow
     shadowColor: '#000', // for iOS shadow
     shadowOffset: { width: 0, height: 2 }, // for iOS shadow

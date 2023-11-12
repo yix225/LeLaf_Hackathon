@@ -52,7 +52,7 @@ class Profile:
         }
     
 class Post:
-    def __init__(self ,username, content , postId, comments=[],types='all'):
+    def __init__(self ,username, content , postId, comments=[],types=''):
         self.username = username
         self.content = content
         self.postId = postId
@@ -83,25 +83,19 @@ class PostsRepository:
         def get_posts(self):
             return self.posts
         
-        def get_family_posts(self, user):
-            # check if type == family
-            # if yes, add to posts list
-            # return posts list
+        def get_family_posts(self):
             posts = dict()
             # check if there is a post with type family
             # if yes, add to posts list
             # return posts list
             if self.posts == None:
                 return posts
-
             for post in self.posts.values():
                 if post.types == 'family':
                     posts.append(post)
             return posts
-
-            
         def get_relationship_posts(self, user):
-            posts = dict()
+           posts = dict()
             # check if there is a post with type family
             # if yes, add to posts list
             # return posts list
@@ -125,6 +119,7 @@ class PostsRepository:
             return posts
         
         def get_personal_posts(self, user):
+            
             posts = dict()
             # check if there is a post with type family
             # if yes, add to posts list
@@ -445,7 +440,7 @@ def allPosts(types):
             print("posts")
             print(str(posts))
         elif my_type == 'family':
-            posts = posts_repository.get_family_posts(current_user)
+            posts = posts_repository.get_family_posts()
         elif my_type == 'relationship':
             posts = posts_repository.get_relationship_posts(current_user)
         elif my_type == 'career':
@@ -553,4 +548,8 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
+    app.run(host='172.20.10.2', port=3000, debug =True)
+=======
     app.run(host='172.20.10.11', port=3000, debug =True)
+>>>>>>> cab33495b40b7827e6d7fc29504660b12869998a
