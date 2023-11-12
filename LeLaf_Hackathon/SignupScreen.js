@@ -17,6 +17,7 @@ const SignupScreen = ({ navigation }) => {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
+          
           console.log(response);
       })
       .catch(function (error) {
