@@ -19,7 +19,7 @@ const PostScreen = () => {
   const handlePost = async () => {   
       console.log(postText);
       
-      axios.post('http://172.20.10.11:3000/addPost/All', {
+      axios.post('http://172.20.10.2:3000/addPost/' +  global.pathpls,{
         postText:postText
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {

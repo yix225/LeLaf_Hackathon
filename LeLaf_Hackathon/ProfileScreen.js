@@ -1,20 +1,38 @@
 // LoginScreen.js
-import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Image} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, StyleSheet, Text, Image,FlatList} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
-
+import Card from './Card';
+import { fetchData } from './api';
 const baseUrl = 'https://api.multiavatar.com/';
 
 
 
+// CardList.js
+
+
+
 const ProfileScreen = () => {
-    const navigation = useNavigation();
-   
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const result = await fetchData();
+        setData(result); // assuming result is an array of objects with 'title' and 'content'
+      } catch (error) {
+        // Handle error
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
+
   return (
-    <View style={styles.container}>
-         <Avatar
+    <View>
+        <Avatar
         size="xlarge"
         rounded
         
@@ -22,36 +40,16 @@ const ProfileScreen = () => {
           uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
         
         containerStyle={{left:135,marginBottom:650}}
+        />
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id.toString()} // adjust the key as per your data structure
+        renderItem={({ item }) => (
+          <Card title={item.title} content={item.content} />
+        )}
       />
-     
-     
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    width: 200,
-  },
-  image: {
-    width: 150, // Set your desired width
-    height: 150, // Set your desired height
-    resizeMode: 'cover', // Adjust the resizeMode as needed (cover, contain, stretch, etc.)
-    borderRadius: 8, // Add border radius if desired
-  },
-});
-
 export default ProfileScreen;
-
-
-// ... rest of the code
