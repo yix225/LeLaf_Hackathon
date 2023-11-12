@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SERVER_URL = 'http://172.20.10.7:3000'; // Replace with your Flask server URL
+const SERVER_URL = 'http://172.20.10.11:3000'; // Replace with your Flask server URL
 const baseUrl = 'https://api.multiavatar.com/';
 
 
@@ -19,7 +19,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {   
       console.log(username);
       console.log(password);
-      axios.post('http://172.20.10.7:3000/login', {
+      axios.post('http://172.20.10.11:3000/login', {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {

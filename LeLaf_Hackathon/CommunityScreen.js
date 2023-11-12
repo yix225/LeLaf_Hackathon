@@ -116,25 +116,26 @@ const CommunityScreen = ({ navigation }) => {
       <ScrollView>
       <FlatList
          
+
         data={DATA}
         renderItem={({item}) => 
-        <TouchableOpacity
-        style={styles.item}
-        onPress={() => 
-          
-          // axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
-          // .then(response => {
-          //   console.log('Response:', response.data);
-          // })
-          // .catch(error => {
-          //   console.log(error.response.data);
-          // })
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => 
+              axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
+        .then(response => {
+          console.log(response);
+          global.pathpls = item.path;
           navigation.navigate('Post')
-           
+        })
+        .catch(error => {
+          console.log(error.response.data);
+        })
 
 
-        }
-        
+      }
+       
+         
         
         >
        

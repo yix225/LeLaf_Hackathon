@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useEffect } from 'react/cjs/react.development';
 
 
 //should receive a string of posts or so
@@ -30,18 +31,14 @@ const PostScreen = () => {
   const handlePost = async () => {   
       console.log(postText);
       
-      axios.post('http://172.20.10.7:3000/addPost/all', {
-        title: "hi",
-        postText:postText
+      axios.post('http://172.20.10.11:3000/addPost/', {
+        username:global.USER,
+        content:content
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
           console.log(response.data);
-          setPosts([...posts, { id: response.data.postId, postText: response.data.content }]);
+          setPosts([...posts, { id: response.data.postId, content: response.data.content }]);
         setModalVisible(false);
-         
-          
-          
-          
       })
       .catch(function (error) {
           console.log(error.response.data);
@@ -54,10 +51,56 @@ const PostScreen = () => {
       <Card key={post.id}>
         <Card.Title>New Post</Card.Title>
         <Card.Divider />
-        <Text>{post.postText}</Text>
+        <Text>{post.content}</Text>
       </Card>
     ));
   };
+
+  // Function to fetch posts
+  const fetchPosts = async () => {
+    try {
+      // Replace this with your actual logic to fetch posts from an API
+      const response = await fetch('http://172.20.10.11:3000/allPosts/all');
+      const data = await response.json();
+      setPosts(data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
+  // Effect to fetch posts when the component mounts
+  useEffect(() => {
+    fetchPosts();
+  }, []); 
+  
+  // const getPosts = async () => {
+  //   axios.fetch('http://172.20.10.11:3000/allPosts/'+ global.pathpls)
+  //   .then(function (response) {
+  //       console.log(response.data);
+  //       setPosts(response.data);
+  //   })
+  //   .catch(function (error) {
+  //       console.log(error.response.data);
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   const fetchPosts = async () => {
+  //     axios.fetch('http://172.20.10.11:3000/allPosts/'+ global.pathpls)
+  //     .then(function (response) {
+  //         console.log(response.data);
+  //         setPosts(response.data);
+  //     })
+  //     .catch(function (error) {
+  //         console.log(error.response.data);
+  //     });
+  //   };
+
+  //   // Call fetchPosts when the component mounts
+  //   fetchPosts();
+  // }, []); 
+
+
 
   return (
     <View style={styles.container}>
