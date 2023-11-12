@@ -149,11 +149,6 @@ const CommunityScreen = ({}) => {
       }
         keyExtractor={item => item.id}
       />
-      
-      
-        
-      
-      
     </ScrollView>
       
     </View>

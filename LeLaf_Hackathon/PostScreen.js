@@ -35,16 +35,7 @@ const PostScreen = () => {
 
   
   const handlePost = async () => {   
-      console.log(postText);
-      user = global.USER;
 
-    axios.get('http://172.20.10.2:3000/profile',{
-        user
-      },{ headers: { 'Content-Type': 'application/json' }})
-      .then(function (response){
-        const data = response.json();
-        console.log(data);
-      })
       // axios.post('http://172.20.10.2:3000/addPost/' +  global.pathpls,{
       //   postText:postText
       // },{ headers: { 'Content-Type': 'application/json' } })

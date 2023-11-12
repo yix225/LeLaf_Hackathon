@@ -45,10 +45,10 @@ class Profile:
     
     def get_userInfo(self):
         return {
-            'userId': self.userId,
+            # 'userId': self.userId,
             'username': self.username,
-            'email': self.email,
-            'posts': self.posts
+            # 'email': self.email,
+            'posts':  [post.to_post() for post in self.posts]
         }
     
 class Post:
@@ -83,6 +83,7 @@ class PostsRepository:
         def get_posts(self):
             return self.posts
         
+<<<<<<< HEAD
         def get_family_posts(self):
             return self.posts
 
@@ -111,72 +112,155 @@ class PostsRepository:
             #     if post.types == 'personal':
             #         posts.append(post)
             # return posts
+=======
+        def get_family_posts(self, user):
+            # check if type == family
+            # if yes, add to posts list
+            # return posts list
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
+
+            for post in self.posts.values():
+                if post.types == 'family':
+                    posts.append(post)
+            return posts
+
+            
+        def get_relationship_posts(self, user):
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
+            for post in self.posts.values():
+                if post.types == 'relationship':
+                    posts.append(post)
+            return posts
+        
+        def get_career_posts(self, user):
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
+            for post in self.posts.values():
+                if post.types == 'career':
+                    posts.append(post)
+            return posts
+        
+        def get_personal_posts(self, user):
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
+            for post in self.posts.values():
+                if post.types == 'personal':
+                    posts.append(post)
+            return posts
+>>>>>>> cab33495b40b7827e6d7fc29504660b12869998a
         
         def get_finance_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'finance':
                     posts.append(post)
             return posts
         
         def get_lafayette_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lafayette':
                     posts.append(post)
             return posts
         
         def get_northampton_posts(self, user):
-            posts = []
+            posts = dict()
+            # check if there is a post with type family
+            # if yes, add to posts list
+            # return posts list
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'northampton':
                     posts.append(post)
             return posts
         
         def get_lehigh_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lehigh':
                     posts.append(post)
             return posts
         
         def get_moravian_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'moravian':
                     posts.append(post)
             return posts
         
         def get_cedar_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'cedar':
                     posts.append(post)
             return posts
         
         def get_lehigh_carbon_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'lehigh_carbon':
                     posts.append(post) 
             return posts
 
         def get_kutztown_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'kutztown':
                     posts.append(post)
             return posts
         
         def get_desales_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'desales':
                     posts.append(post)
             return posts
         
         def get_muhlenberg_posts(self, user):
-            posts = []
+            posts = dict()
+            if self.posts == None:
+                return posts
             for post in self.posts.values():
                 if post.types == 'muhlenberg':
                     posts.append(post)
@@ -287,9 +371,9 @@ def login():
             # print('Logged in..')
             login_user(user_obj)
             # redirect to home page if login successful
-            # return redirect(url_for('profile'))
+            return redirect(url_for('profile'))
             # return redirect(url_for('addPost', types='all'))
-            return redirect(url_for('allPosts', types='all'))
+            # return redirect(url_for('allPosts', types='all'))
         else:
             return abort(401)
     else:
@@ -339,24 +423,33 @@ def signup():
     return Response("Registered Sucessfully")
 
 
-@app.route('/profile', methods=['GET','PUT'])
-@login_required
+@app.route('/profile', methods=['GET'])
 def profile():
-    print('global user '+ str(current_user))
+    print('global user '+ str(current_user.username))
     print('Profile...')
-    if request.method == 'PUT':
-        json_data = request.get_json()
-        # avatar = json_data.get('avatar')
-        # email = json_data.get('email')
-        posts = json_data.get('posts')
-        print('Posts '+ str(posts))
-        profile = Profile(current_user.username, email = None, posts = posts)
-        return Response("Profile Updated Sucessfully")
-    else:
-        print('current user '+ str(current_user))
-        profile = Profile(current_user.username, email = None, posts = [])
-    # return json of avatar, username, email, posts
+    
+    
+    # get posts when username = current_user.username
+    # use a for loop to check if username in posts = current_user.username
+    # if yes, add to posts list
+    # return posts list
+    posts = []
+    for post in posts_repository.posts.values():
+        if post.username == current_user.username:
+            posts.append(post)
+    print('Posts '+ str(posts))   
+    profile = Profile(current_user.username, email = None, posts = posts)
+    print('Profile '+ str(profile))
+    print('Profile '+ str(profile.get_userInfo()))
+
+    print(profile.get_userInfo())
     return jsonify(profile.get_userInfo())
+
+    # return profile.get_userInfo()
+
+    # return json of avatar, username, email, posts
+    # print("returning profile")
+    # print(profile.get_userInfo())
 
 @app.route('/logout')
 @login_required
@@ -450,7 +543,7 @@ def addPost(types):
             posts_repository.save_post(new_post)
 
             print('Post Added Successfully')
-            return Response("Post Added Successfully")
+            return jsonify(new_post.to_post())
         except Exception as e:
             print('Error:', str(e))
             return abort(500)  # Internal Server Error
@@ -491,4 +584,8 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(host='172.20.10.2', port=3000, debug =True)
+=======
+    app.run(host='172.20.10.11', port=3000, debug =True)
+>>>>>>> cab33495b40b7827e6d7fc29504660b12869998a
