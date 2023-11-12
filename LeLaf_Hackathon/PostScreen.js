@@ -38,7 +38,7 @@ const PostScreen = () => {
   const handlePost = async () => {   
       console.log(postText);
       
-      axios.post('http://172.20.10.11:3000/addPost/', {
+      axios.post('http://172.20.10.11:3000/addPost/' + global.pathpls, {
         username:global.USER,
         content:content
       },{ headers: { 'Content-Type': 'application/json' } })
@@ -66,7 +66,7 @@ const PostScreen = () => {
   const fetchPosts = async () => {
     try {
       // Replace this with your actual logic to fetch posts from an API
-      const response = await fetch('http://172.20.10.11:3000/allPosts/all');
+      const response = await fetch('http://172.20.10.11:3000/allPosts/'+ global.pathpls);
       const data = await response.json();
       setPosts(data);
     } catch (error) {
