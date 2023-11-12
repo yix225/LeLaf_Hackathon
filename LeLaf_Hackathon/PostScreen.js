@@ -1,4 +1,5 @@
 // Users can click + button to add a new post within this community
+//Show community name at the top
 //Modal is entrybox for post when creating a ppost and '+' sign
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity} from 'react-native';
@@ -12,6 +13,23 @@ const baseUrl = 'https://api.multiavatar.com/';
 const PostScreen = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [postText, setPostText] = useState('');
+
+  const handlePost = async () => {   
+      console.log(postText);
+      
+      axios.post('http://172.20.10.7:3000/addPost/<type>', {
+        postText:postText
+      },{ headers: { 'Content-Type': 'application/json' } })
+      .then(function (response) {
+          console.log(response);
+          setModalVisible(!modalVisible)
+          
+      })
+      .catch(function (error) {
+          console.log(error.response.data);
+      }); 
+  };
   return (
     <View style={styles.container}>
       <Modal
@@ -25,6 +43,13 @@ const PostScreen = () => {
             <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Make A Post:</Text>
+             <TextInput
+                style={styles.input}
+                placeholder="New Post..."
+                value={post}
+                onChangeText={(text) => setPostText(text)}
+              />
+            <Button title= 'Post' onPress={handlePost}  />
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
@@ -35,7 +60,7 @@ const PostScreen = () => {
       </Modal>
       
 
-      <Text style={styles.title}>Posts Screen</Text>
+      
       
       <TouchableOpacity style={styles.addButton}
        onPress={() => setModalVisible(true)}
@@ -89,6 +114,14 @@ const styles = StyleSheet.create({
     color: 'white', // You can customize the text color
     fontSize: 60,
     fontWeight: 'bold',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    width: 200,
   },
   centeredView: {
     flex: 1,

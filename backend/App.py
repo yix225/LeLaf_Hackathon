@@ -8,8 +8,54 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+class Comment:
+    def __init__(self, postId, content):
+        self.postId = postId
+        self.content = content
+            
+    def get_comment(self):
+        return {
+            'postId': self.postId,
+            'content': self.content
+        }
+    
+class CommentsRepository:
+        
+        def __init__(self):
+            self.comments = dict()
+            self.identifier = 0
+            
+        def save_comment(self, comment):
+            self.comments.setdefault(comment.postId, comment)
+            
+        def get_all_comment(self, postId):
+            my_comments = []
+            for comment in self.comments.values():
+                if comment.postId == postId:
+                    my_comments.append(comment)
+            return my_comments
+    
+
+class Profile:
+    def __init__(self, avatar, username, email = None, posts=[]):
+        self.avatar = avatar
+        self.username = username
+        self.email = email
+        self.posts = posts
+    
+    def get_userInfo(self):
+        return {
+            'userId': self.userId,
+            'avatar': self.avatar,
+            'username': self.username,
+            'email': self.email,
+            'posts': self.posts
+        }
+    
 class Post:
-    def __init__(self , content , postId, comments=[],type='all'):
+    def __init__(self ,username, content , postId, comments=[],type='all'):
+        self.username = username
         self.content = content
         self.postId = postId
         self.comments = comments
@@ -128,6 +174,10 @@ class PostsRepository:
                     posts.append(post)
             return posts
         
+        def next_index(self):
+            self.identifier +=1
+            return self.identifier
+        
 class User(UserMixin):
     def __init__(self , username , password , id , active=True, email=None, posts=[]):
         self.id = id
@@ -186,7 +236,7 @@ class UsersRepository:
 
 users_repository = UsersRepository()
 posts_repository = PostsRepository()
-
+comments_repository = CommentsRepository()
 
 
 
@@ -227,6 +277,7 @@ def login():
         if registeredUser != None and registeredUser.password == password:
             print('Logged in..')
             login_user(registeredUser)
+            # redirect to home page if login successful
             return redirect(url_for('home'))
         else:
             return abort(401)
@@ -246,6 +297,13 @@ def login():
         #         ],
         #         "submit": {"type": "submit", "value": "Login"}
         #     })
+
+
+def login_user(user):
+    global current_user
+    current_user = user
+    print('Logged in user '+ str(current_user))
+    return
 
 @app.route('/signup', methods=['GET','POST'])
 def signup():
@@ -269,20 +327,21 @@ def signup():
     return Response("Registered Sucessfully")
 
 
-@app.route('/profile/<userId>')
+@app.route('/profile', methods=['GET','PUT'])
 @login_required
-def profile(userId):
+def profile():
     print('Profile...')
-    profile = users_repository.get_user_by_id(userId)
-    if profile is None:
-        return Response('<p>Profile Design</p>')
+    if request.method == 'PUT':
+        json_data = request.get_json()
+        avatar = json_data.get('avatar')
+        # email = json_data.get('email')
+        posts = json_data.get('posts')
+        profile = Profile(avatar, current_user, email = None, posts = posts)
+        return Response("Profile Updated Sucessfully")
     else:
-        return Response(
-        '''
-            <h1>Profile Page</h1>
-        '''
-        )
-    
+        profile = Profile('avatar', current_user)
+    # return json of avatar, username, email, posts
+    return jsonify(profile.get_userInfo())
 
 @app.route('/logout')
 @login_required
@@ -291,7 +350,7 @@ def logout():
 
 
 @app.route('/allPosts/<type>', methods=['GET'])
-@login_required
+#@login_required
 def allPosts(type):
     print('All Posts...')
     if request.method == 'GET':
@@ -341,9 +400,32 @@ def addPost(type):
         json_data = request.get_json()
         content = json_data.get('content')
         postId = json_data.get('postId')
-        new_post = Post(posts_repository.next_index(), content, postId, type=type)
+        new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
         posts_repository.save_post(new_post)
         return Response("Post Added Sucessfully")
+    else:
+        return abort(404)
+    
+@app.route('/addComment/<postId>', methods=['POST'])
+@login_required
+def addComment(postId):
+    print('Comment...')
+    if request.method == 'POST':
+        json_data = request.get_json()
+        content = json_data.get('content')
+        new_comment = Comment(postId=postId, content=content)
+        comments_repository.save_comment(new_comment)
+        return Response("Comment Added Sucessfully")
+    else:
+        return abort(404)
+    
+@app.route('/getAllComments/<postId>', methods=['GET'])
+@login_required
+def getAllComments(postId):
+    print('All Comments...')
+    if request.method == 'GET':
+        comments = comments_repository.get_all_comment(postId)
+        return jsonify(comments)
     else:
         return abort(404)
     
@@ -358,4 +440,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-    app.run(host='172.20.10.2', port=3000, debug =True)
+    app.run(host='172.20.10.7', port=3000, debug =True)
