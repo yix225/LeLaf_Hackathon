@@ -38,8 +38,7 @@ class CommentsRepository:
     
 
 class Profile:
-    def __init__(self, avatar, username, email = None, posts=[]):
-        self.avatar = avatar
+    def __init__(self, username, email = None, posts=[]):
         self.username = username
         self.email = email
         self.posts = posts
@@ -47,7 +46,6 @@ class Profile:
     def get_userInfo(self):
         return {
             'userId': self.userId,
-            'avatar': self.avatar,
             'username': self.username,
             'email': self.email,
             'posts': self.posts
@@ -270,15 +268,16 @@ def login():
             print('Username:', username)
             print('Password:', password)
         
-        registeredUser = users_repository.get_user(username)
-        print('Registered user '+ str(registeredUser))
-        print('Users '+ str(users_repository.users))
-        print('Register user %s , password %s' % (registeredUser.username, registeredUser.password))
-        if registeredUser != None and registeredUser.password == password:
-            print('Logged in..')
-            login_user(registeredUser)
+        # registeredUser = users_repository.get_user(username)
+        # print('Registered user '+ str(registeredUser))
+        # print('Users '+ str(users_repository.users))
+        # print('Register user %s , password %s' % (registeredUser.username, registeredUser.password))
+        user_obj = users_repository.get_user(username)
+        if user_obj.username != None and user_obj.password == password:
+            # print('Logged in..')
+            login_user(user_obj)
             # redirect to home page if login successful
-            return redirect(url_for('home'))
+            return redirect(url_for('allPosts', type='all'))
         else:
             return abort(401)
     else:
@@ -303,6 +302,7 @@ def login_user(user):
     global current_user
     current_user = user
     print('Logged in user '+ str(current_user))
+    print('Logged in user '+ str(current_user.username))
     return
 
 @app.route('/signup', methods=['GET','POST'])
@@ -330,16 +330,19 @@ def signup():
 @app.route('/profile', methods=['GET','PUT'])
 @login_required
 def profile():
+    print('global user '+ str(current_user))
     print('Profile...')
     if request.method == 'PUT':
         json_data = request.get_json()
-        avatar = json_data.get('avatar')
+        # avatar = json_data.get('avatar')
         # email = json_data.get('email')
         posts = json_data.get('posts')
-        profile = Profile(avatar, current_user, email = None, posts = posts)
+        print('Posts '+ str(posts))
+        profile = Profile(current_user.username, email = None, posts = posts)
         return Response("Profile Updated Sucessfully")
     else:
-        profile = Profile('avatar', current_user)
+        print('current user '+ str(current_user))
+        profile = Profile(current_user.username, email = None, posts = [])
     # return json of avatar, username, email, posts
     return jsonify(profile.get_userInfo())
 
@@ -392,14 +395,13 @@ def allPosts(type):
         return abort(404)
 
 
-@app.route('/addPost/<type>/<postId>', methods=['POST'])
+@app.route('/addPost/<type>', methods=['POST'])
 @login_required
 def addPost(type):
     print('Post...')
     if request.method == 'POST':
         json_data = request.get_json()
         content = json_data.get('content')
-        postId = json_data.get('postId')
         new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
         posts_repository.save_post(new_post)
         return Response("Post Added Sucessfully")
@@ -440,4 +442,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-    app.run(host='172.20.10.2', port=3000, debug =True)
+    app.run(host='172.20.10.11', port=3000, debug =True)
