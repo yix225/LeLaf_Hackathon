@@ -4,6 +4,7 @@ import { View, TextInput, Button, StyleSheet, Text, Image} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
+
 const SERVER_URL = 'http://172.20.10.2:3000'; // Replace with your Flask server URL
 const baseUrl = 'https://api.multiavatar.com/';
 
@@ -23,13 +24,13 @@ const LoginScreen = () => {
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
           console.log(response);
-          navigation.navigate('Avatar');
+          global.USER = username;
+          navigation.navigate('Post');
       })
       .catch(function (error) {
           console.log(error.response.data);
       }); 
   };
-
 
   return (
     <View style={styles.container}>

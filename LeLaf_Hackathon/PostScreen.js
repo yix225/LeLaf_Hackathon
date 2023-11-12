@@ -2,16 +2,16 @@
 //Show community name at the top
 //Modal is entrybox for post when creating a ppost and '+' sign
 import React, {useState} from 'react';
-import { View, Button, Text, TextInput, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
-import {item } from './CommunityScreen';
+import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity} from 'react-native';
+import { Avatar } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
-//should receive a string of posts or so
+const baseUrl = 'https://api.multiavatar.com/';
 
-// post.type
 
 
 const PostScreen = () => {
-
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [postText, setPostText] = useState('');
 
@@ -67,6 +67,21 @@ const PostScreen = () => {
       >
       <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.addButton}
+       onPress={() => setModalVisible(true)}
+      >
+      <Text style={styles.buttonText}></Text>
+      </TouchableOpacity>
+      <Avatar
+        size="medium"
+        rounded
+        
+        source={{
+          uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
+        
+        onPress={() => navigation.navigate('Profile')}
+        containerStyle={{left:180,marginBottom:800}}
+      />
     </View>
   );
 };
@@ -117,7 +132,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     padding:35,
     alignItems: 'center',
     shadowColor: '#000',
