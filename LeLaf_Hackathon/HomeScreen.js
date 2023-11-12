@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, StyleSheet,ImageBackground } from 'react-
 const HomeScreen = ({ navigation }) => {
   return (
     <ImageBackground 
-      source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/bg.png')}
+      source={require('./bg.png')}
       style={styles.container}>
     <View style={styles.container}>
       <Text style={styles.title}>Connected</Text>

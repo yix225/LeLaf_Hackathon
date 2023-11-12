@@ -34,7 +34,7 @@ const LoginScreen = () => {
 
   return (
     <ImageBackground 
-    source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/bg.png')}
+    source={require('./bg.png')}
     style={styles.container}>
     <View style={styles.container}>
       <Image

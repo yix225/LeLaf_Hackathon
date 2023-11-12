@@ -66,7 +66,7 @@ const ProfileScreen = ({}) => {
 
     
   return (
-    <ImageBackground source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/icon1.png')}
+    <ImageBackground source={require('./icon1.png')}
     style={styles.container}>
     <View style={styles.container}>
     <ScrollView style={styles.scrollView}>
