@@ -291,7 +291,7 @@ def logout():
 
 
 @app.route('/allPosts/<type>', methods=['GET'])
-@login_required
+#@login_required
 def allPosts(type):
     print('All Posts...')
     if request.method == 'GET':
@@ -358,4 +358,4 @@ def load_user(userid):
     return users_repository.get_user_by_id(userid)
 
 if __name__ == '__main__':
-    app.run(host='172.20.10.2', port=3000, debug =True)
+    app.run(host='172.20.10.7', port=3000, debug =True)
