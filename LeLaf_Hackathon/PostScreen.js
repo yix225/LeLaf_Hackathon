@@ -7,6 +7,7 @@ import { Card } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 //should receive a string of posts or so
@@ -30,6 +31,7 @@ const PostScreen = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [postText, setPostText] = useState('');
+  const [posts, setPosts] = useState([]);
 
   const handlePost = async () => {   
       console.log(postText);
@@ -39,16 +41,34 @@ const PostScreen = () => {
         postText:postText
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
-          console.log(response);
-          setModalVisible(!modalVisible)
+          console.log(response.data);
+          setPosts([...posts, response.data]);
+          setModalVisible(false);
+          
+          
           
       })
       .catch(function (error) {
           console.log(error.response.data);
       }); 
   };
+
+  const renderPosts = () => {
+    return posts.map((post) => (
+      <Card >
+        <Card.Title>New Post</Card.Title>
+        <Card.Divider />
+        <Text>{postText}</Text>
+      </Card>
+    ));
+  };
+
   return (
     <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        {renderPosts()}
+      </ScrollView>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -92,11 +112,13 @@ const PostScreen = () => {
       >
       <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
+
       <TouchableOpacity style={styles.addButton}
        onPress={() => setModalVisible(true)}
       >
       <Text style={styles.buttonText}></Text>
       </TouchableOpacity>
+
       <Avatar
         size="medium"
         rounded
@@ -105,7 +127,7 @@ const PostScreen = () => {
           uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
         
         onPress={() => navigation.navigate('Profile')}
-        containerStyle={{left:180,marginBottom:800}}
+        containerStyle={styles.avatarContainer}
       />
     </View>
   );
@@ -154,7 +176,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
+  scrollView: {
+    flex: 1,
+    width: '100%',
+  },
   modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding:35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  cardView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -200,6 +241,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  avatarContainer: {
+    position: 'absolute',
+    top: 20, // Adjust top position for vertical spacing
+    right: 20, // Adjust right position for horizontal spacing
   },
   modalText: {
     marginBottom: 15,
