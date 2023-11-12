@@ -45,10 +45,10 @@ class Profile:
     
     def get_userInfo(self):
         return {
-            'userId': self.userId,
+            # 'userId': self.userId,
             'username': self.username,
-            'email': self.email,
-            'posts': self.posts
+            # 'email': self.email,
+            'posts':  [post.to_post() for post in self.posts]
         }
     
 class Post:
@@ -286,9 +286,9 @@ def login():
             # print('Logged in..')
             login_user(user_obj)
             # redirect to home page if login successful
-            # return redirect(url_for('profile'))
+            return redirect(url_for('profile'))
             # return redirect(url_for('addPost', types='all'))
-            return redirect(url_for('allPosts', types='all'))
+            # return redirect(url_for('allPosts', types='all'))
         else:
             return abort(401)
     else:
@@ -338,24 +338,33 @@ def signup():
     return Response("Registered Sucessfully")
 
 
-@app.route('/profile', methods=['GET','PUT'])
-@login_required
+@app.route('/profile', methods=['GET'])
 def profile():
-    print('global user '+ str(current_user))
+    print('global user '+ str(current_user.username))
     print('Profile...')
-    if request.method == 'PUT':
-        json_data = request.get_json()
-        # avatar = json_data.get('avatar')
-        # email = json_data.get('email')
-        posts = json_data.get('posts')
-        print('Posts '+ str(posts))
-        profile = Profile(current_user.username, email = None, posts = posts)
-        return Response("Profile Updated Sucessfully")
-    else:
-        print('current user '+ str(current_user))
-        profile = Profile(current_user.username, email = None, posts = [])
-    # return json of avatar, username, email, posts
+    
+    
+    # get posts when username = current_user.username
+    # use a for loop to check if username in posts = current_user.username
+    # if yes, add to posts list
+    # return posts list
+    posts = []
+    for post in posts_repository.posts.values():
+        if post.username == current_user.username:
+            posts.append(post)
+    print('Posts '+ str(posts))   
+    profile = Profile(current_user.username, email = None, posts = posts)
+    print('Profile '+ str(profile))
+    print('Profile '+ str(profile.get_userInfo()))
+
+    print(profile.get_userInfo())
     return jsonify(profile.get_userInfo())
+
+    # return profile.get_userInfo()
+
+    # return json of avatar, username, email, posts
+    # print("returning profile")
+    # print(profile.get_userInfo())
 
 @app.route('/logout')
 @login_required
