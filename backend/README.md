@@ -1,17 +1,23 @@
-# install environment
+# Install environment
 pip install Flask
 pip install flask-login
 
-# info
+# Info
 python3 App.py
 
-# functionality
+# Functionality
 1. login
     1.1 login using username and password
 2. profile page
-    showing the username, avatar, content posted
+    2.1 showing the username, avatar, content posted
+3. communities page
+    3.1 Join different groups to post within different communities
+    3.2 send the post anonmouly to share 
+    3.3 See and comment the post anonmouly 
 
-# resource
+# Routes
+    
+# Resource
 https://flask-login.readthedocs.io/en/latest/
 https://github.com/shekhargulati/flask-login-example/blob/master/flasklogin.py
 
