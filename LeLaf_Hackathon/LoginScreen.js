@@ -10,9 +10,11 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = async () => {    
     try {
-      const response = await axios.post(`${SERVER_URL}/login`, { username, password });
+      console.log(username);
+      console.log(password);
+      const response = await axios.post(`${SERVER_URL}/login`, { username:username, password:password});
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data?.message || 'An error occurred during login.');
