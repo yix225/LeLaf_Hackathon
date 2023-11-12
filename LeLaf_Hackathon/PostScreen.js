@@ -5,6 +5,8 @@ import React, {useState} from 'react';
 import { View, Button, Text, TextInput, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import { Avatar } from 'react-native-elements';
 
 
 //should receive a string of posts or so
@@ -17,8 +19,15 @@ import axios from 'axios';
               <Text>{postText}</Text>
               </Card> */}
 
-const PostScreen = () => {
 
+
+
+const baseUrl = 'https://api.multiavatar.com/';
+
+
+
+const PostScreen = () => {
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [postText, setPostText] = useState('');
 
@@ -83,6 +92,21 @@ const PostScreen = () => {
       >
       <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.addButton}
+       onPress={() => setModalVisible(true)}
+      >
+      <Text style={styles.buttonText}></Text>
+      </TouchableOpacity>
+      <Avatar
+        size="medium"
+        rounded
+        
+        source={{
+          uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
+        
+        onPress={() => navigation.navigate('Profile')}
+        containerStyle={{left:180,marginBottom:800}}
+      />
     </View>
   );
 };
@@ -133,7 +157,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     padding:35,
     alignItems: 'center',
     shadowColor: '#000',
