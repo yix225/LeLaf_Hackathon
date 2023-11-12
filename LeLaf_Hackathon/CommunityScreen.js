@@ -4,77 +4,89 @@ import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'rea
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
-
-
-// axios.get('https://172.20.10.7/allPosts/' + item.title)
-//           .then(response => {
-//             console.log('Response:', response.data);
-//           })
-//           .catch(error => {
-//             console.error('Error:', error);
-//           })
+//navigation.navigate('Post')
 
 
 const DATA = [
   {
+    id: '20',
+    title: 'All',
+    path: 'all',
+  },
+  {
     id: '0',
-    title: 'family',
+    title: 'Family',
+    path: 'family',
   },
   {
     id: '1',
     title: 'Career',
+    path: 'career',
   },
   {
     id: '2',
     title: 'Relationships',
+    path: 'relationship',
   },
   {
     id: '3',
     title: 'Personal',
+    path: 'all',
   },
   {
     id: '4',
     title: 'Home Sick',
+    path: 'all',
   },
   {
     id: '11',
     title: 'Financial',
+    path: 'all',
   },
   {
     id: '5',
     title: 'Lehigh University',
+    path: 'all',
   },
   {
     id: '6',
     title: 'Lafayette College',
+    path: 'all',
   },
   {
     id: '7',
     title: 'Northampton Community College',
+    path: 'all',
   },
   {
     id: '8',
     title: 'Muhlenberg College',
+    path: 'all',
   },
   {
     id: '9',
     title: 'Moravian University',
+    path: 'all',
   },
   {
     id: '10',
     title: 'Cedar Crest College',
+    path: 'all',
   },
   {
     id: '12',
     title: 'DeSales University',
+    path: 'all',
   },
   {
     id: '13',
     title: 'Lehigh Carbon Community College',
+    path: 'all',
   },
   {
     id: '14',
     title: 'Kutztown University of Pennsylvania',
+    path: 'all',
   },
 
 ];
@@ -100,7 +112,10 @@ const CommunityScreen = ({ navigation }) => {
         <TouchableOpacity
         style={styles.item}
         onPress={() => 
-          navigation.navigate('Post')
+          console.log(item.path)
+          
+
+
         }
         
         
