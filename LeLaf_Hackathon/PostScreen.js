@@ -2,7 +2,7 @@
 //Show community name at the top
 //Modal is entrybox for post when creating a ppost and '+' sign
 import React, {useState} from 'react';
-import { View, Button, Text, TextInput, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
+import { View, Button, Text, TextInput, StyleSheet, Modal, Pressable, TouchableOpacity,ImageBackground } from 'react-native';
 import { Card } from 'react-native-elements';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -38,7 +38,7 @@ const PostScreen = () => {
   const handlePost = async () => {   
       console.log(postText);
       
-      axios.post('http://172.20.10.11:3000/addPost/'+ global.pathpls,{
+      axios.post('http://172.20.10.2:3000/addPost/'+ global.pathpls,{
         username:global.USER,
         postText:postText,
       },{ headers: { 'Content-Type': 'application/json' } })
@@ -67,7 +67,7 @@ const PostScreen = () => {
   const fetchPosts = async () => {
     try {
       // Replace this with your actual logic to fetch posts from an API
-      const response = await fetch('http://172.20.10.11:3000/allPosts/'+ global.pathpls);
+      const response = await fetch('http://172.20.10.2:3000/allPosts/'+ global.pathpls);
       // console.log('response');
       // console.log(response);
       const data = await response.json();
@@ -141,7 +141,7 @@ const PostScreen = () => {
       </TouchableOpacity>
 
       <Avatar
-        size="medium"
+        size="large"
         rounded
         
         source={{
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: "#F3D3FA",
   },
   title: {
     fontSize: 24,

@@ -1,6 +1,6 @@
 // A screen with different tabs on the left. Each tab opens up a forum post/text post section. 
 import React from 'react';
-import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity,ImageBackground } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -125,7 +125,7 @@ const CommunityScreen = ({}) => {
             <TouchableOpacity
               style={styles.item}
               onPress={() => 
-              axios.get('http://172.20.10.11:3000/allPosts/' + item.path)
+              axios.get('http://172.20.10.2:3000/allPosts/' + item.path)
         .then(response => {
           console.log(response);
           global.pathpls = item.path;
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     
   },
   item: {
-    backgroundColor: 'pink',
+    backgroundColor: '#FFDDFF',
     height: 130,
     justifyContent: 'center',
     marginVertical: 5,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 
 communityName:{
   fontFamily: 'The Time News',
-  fontSize: 20,
+  fontSize: 25,
   color: '#300040',
   justifyContent: 'center',
   
