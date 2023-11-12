@@ -1,7 +1,7 @@
 // Users can click + button to add a new post within this community
 //Show community name at the top
 //Modal is entrybox for post when creating a ppost and '+' sign
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Button, Text, TextInput, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import axios from 'axios';
@@ -23,16 +23,18 @@ const PostScreen = ({route }) => {
   const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState([]);
 
-  // //initial posts
-  //  useEffect(() => {
-  //   // Access the passed parameter
-  //   const postData = route.params?.postData;
-  //   if (postData) {
-  //     // Use the postData to update the state or perform other actions
-  //     setPosts([...posts, { id: postData.postId, postText: postData.content }]);
-  //   }
-  // }, [route.params]);
+  //initial posts
+   useEffect(() => {
+    // Access the passed parameter
+    const postData = route.params?.postData;
+    if (postData) {
+      
+      // Use the postData to update the state or perform other actions
+      setPosts([...posts, { id: postData.postId, postText: postData.content }]);
+    }
+  }, [route.params]);
 
+  
   const handlePost = async () => {   
       console.log(postText);
       
