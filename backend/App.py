@@ -52,12 +52,21 @@ class Profile:
         }
     
 class Post:
-    def __init__(self ,username, content , postId, comments=[],type='all'):
+    def __init__(self ,username, content , postId, comments=[],types='all'):
         self.username = username
         self.content = content
         self.postId = postId
         self.comments = comments
-        self.type = type
+        self.types = types
+
+    def to_post(self):
+        return {
+            'username': self.username,
+            'content': self.content,
+            'postId': self.postId,
+            'comments': self.comments,
+            'types': self.types
+        }
 
 class PostsRepository:
     
@@ -77,98 +86,98 @@ class PostsRepository:
         def get_family_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'family':
+                if post.types == 'family':
                     posts.append(post)
             return posts
         
         def get_relationship_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'relationship':
+                if post.types == 'relationship':
                     posts.append(post)
             return posts
         
         def get_career_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'career':
+                if post.types == 'career':
                     posts.append(post)
             return posts
         
         def get_personal_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'personal':
+                if post.types == 'personal':
                     posts.append(post)
             return posts
         
         def get_finance_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'finance':
+                if post.types == 'finance':
                     posts.append(post)
             return posts
         
         def get_lafayette_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'lafayette':
+                if post.types == 'lafayette':
                     posts.append(post)
             return posts
         
         def get_northampton_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'northampton':
+                if post.types == 'northampton':
                     posts.append(post)
             return posts
         
         def get_lehigh_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'lehigh':
+                if post.types == 'lehigh':
                     posts.append(post)
             return posts
         
         def get_moravian_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'moravian':
+                if post.types == 'moravian':
                     posts.append(post)
             return posts
         
         def get_cedar_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'cedar':
+                if post.types == 'cedar':
                     posts.append(post)
             return posts
         
         def get_lehigh_carbon_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'lehigh_carbon':
+                if post.types == 'lehigh_carbon':
                     posts.append(post) 
             return posts
 
         def get_kutztown_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'kutztown':
+                if post.types == 'kutztown':
                     posts.append(post)
             return posts
         
         def get_desales_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'desales':
+                if post.types == 'desales':
                     posts.append(post)
             return posts
         
         def get_muhlenberg_posts(self, user):
             posts = []
             for post in self.posts.values():
-                if post.type == 'muhlenberg':
+                if post.types == 'muhlenberg':
                     posts.append(post)
             return posts
         
@@ -278,24 +287,25 @@ def login():
             login_user(user_obj)
             # redirect to home page if login successful
             # return redirect(url_for('profile'))
-            return redirect(url_for('allPosts', type='all'))
+            # return redirect(url_for('addPost', types='all'))
+            return redirect(url_for('allPosts', types='all'))
         else:
             return abort(401)
     else:
          return Response('''
             <form action="" method="post">
-                <p><input type=text name=username>
-                <p><input type=password name=password>
-                <p><input type=submit value=Login>
+                <p><input types=text name=username>
+                <p><input types=password name=password>
+                <p><input types=submit value=Login>
             </form>
         ''')
         # return jsonify({
         #         "method": "post",
         #         "inputs": [
-        #             {"type": "text", "name": "username"},
-        #             {"type": "password", "name": "password"}
+        #             {"types": "text", "name": "username"},
+        #             {"types": "password", "name": "password"}
         #         ],
-        #         "submit": {"type": "submit", "value": "Login"}
+        #         "submit": {"types": "submit", "value": "Login"}
         #     })
 
 
@@ -353,59 +363,96 @@ def logout():
     print('Logged out..')
 
 
-@app.route('/allPosts/<type>', methods=['GET'])
+@app.route('/allPosts/<types>', methods=['GET'])
 #@login_required
-def allPosts(type):
-    print('All Posts...')
+def allPosts(types):
+    # json_data = request.get_json()
+    # print('Received JSON data:', json_data)
+
+    # content = json_data.get('content')
+    # print('Content:', content)
+    # my_type = json_data.get('type')
+    # print('Type:', my_type)
+    # print('All Posts...')
+    my_type = types
     if request.method == 'GET':
         posts = []
-        if type == 'all':
+        if my_type == 'all':
             posts = posts_repository.get_posts()
-        elif type == 'family':
+            print("posts")
+            print(str(posts))
+        elif my_type == 'family':
             posts = posts_repository.get_family_posts(current_user)
-        elif type == 'relationship':
+        elif my_type == 'relationship':
             posts = posts_repository.get_relationship_posts(current_user)
-        elif type == 'career':
+        elif my_type == 'career':
             posts = posts_repository.get_career_posts(current_user)
-        elif type == 'personal':
+        elif my_type == 'personal':
             posts = posts_repository.get_personal_posts(current_user)
-        elif type == 'finance':
+        elif my_type == 'finance':
             posts = posts_repository.get_finance_posts(current_user)
-        elif type == 'lafayette':
+        elif my_type == 'lafayette':
             posts = posts_repository.get_lafayette_posts(current_user)
-        elif type == 'northampton':
+        elif my_type == 'northampton':
             posts = posts_repository.get_northampton_posts(current_user)
-        elif type == 'lehigh':
+        elif my_type == 'lehigh':
             posts = posts_repository.get_lehigh_posts(current_user)
-        elif type == 'moravian':
+        elif my_type == 'moravian':
             posts = posts_repository.get_moravian_posts(current_user)
-        elif type == 'cedar':
+        elif my_type == 'cedar':
             posts = posts_repository.get_cedar_posts(current_user)
-        elif type == 'lehigh_carbon':
+        elif my_type == 'lehigh_carbon':
             posts = posts_repository.get_lehigh_carbon_posts(current_user)
-        elif type == 'kutztown':
+        elif my_type == 'kutztown':
             posts = posts_repository.get_kutztown_posts(current_user)
-        elif type == 'desales':
+        elif my_type == 'desales':
             posts = posts_repository.get_desales_posts(current_user)
-        elif type == 'muhlenberg':
+        elif my_type == 'muhlenberg':
             posts = posts_repository.get_muhlenberg_posts(current_user)
         else:
             return abort(404)
-        return jsonify(posts)
+        
+
+        ret = []
+        for post in posts.values():
+            ret.append(post.to_post())
+
+        print("ret" + str(ret))
+        # print(ret)
+        return jsonify(ret)
+        # return response(posts)
     else:
         return abort(404)
 
 
-@app.route('/addPost/<type>', methods=['POST'])
-@login_required
-def addPost(type):
-    print('Post...')
+@app.route('/addPost/<types>', methods=['POST'])
+# @login_required
+def addPost(types):
+    print('Add Post...')
+    # print('Received POST request to /addPost/' + type)
+
     if request.method == 'POST':
-        json_data = request.get_json()
-        content = json_data.get('content')
-        new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
-        posts_repository.save_post(new_post)
-        return Response("Post Added Sucessfully")
+        # json_data = request.get_json()
+        # content = json_data.get('content')
+        # new_post = Post(postId=posts_repository.next_index(), content=content, type=type,username=current_user.username)
+        # posts_repository.save_post(new_post)
+        # return Response("Post Added Sucessfully")
+        try:
+            json_data = request.get_json()
+            print('Received JSON data:', json_data)
+
+            content = json_data.get('postText')
+            print('Content:', content)
+            my_type = types
+            print('Type:', my_type)
+            new_post = Post(postId=posts_repository.next_index(), content=content, types=my_type, username=current_user.username)
+            posts_repository.save_post(new_post)
+
+            print('Post Added Successfully')
+            return Response("Post Added Successfully")
+        except Exception as e:
+            print('Error:', str(e))
+            return abort(500)  # Internal Server Error
     else:
         return abort(404)
     
