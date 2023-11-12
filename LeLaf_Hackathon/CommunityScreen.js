@@ -69,28 +69,34 @@ const DATA = [
 ];
 
 
-const Item = ({title}, {navigation}) => (
+const Item = ({title}) => (
   <View style={styles.item}>
+   <Text style={styles.title}>{title}</Text>
 
-      <TouchableOpacity
-        style={styles.item}
-        onPress={() => navigation.navigate('Post')}
-      >
-        <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
-
-
+      
   </View>
 );
 
-const CommunityScreen = () => {
+const CommunityScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
       <FlatList
          
         data={DATA}
-        renderItem={({item}) => <Item style={styles.communityName} title={item.title} />}
+        renderItem={({item}) => 
+        <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate('Post')}>
+       
+      
+
+
+        <Item style={styles.communityName} title={item.title} />
+      </TouchableOpacity>
+      
+      
+      }
         keyExtractor={item => item.id}
       />
       
