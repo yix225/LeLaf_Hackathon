@@ -449,7 +449,7 @@ def addPost(types):
             posts_repository.save_post(new_post)
 
             print('Post Added Successfully')
-            return Response("Post Added Successfully")
+            return jsonify(new_post.to_post())
         except Exception as e:
             print('Error:', str(e))
             return abort(500)  # Internal Server Error
