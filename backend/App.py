@@ -353,7 +353,7 @@ def logout():
 
 
 @app.route('/allPosts/<type>', methods=['GET'])
-@login_required
+#@login_required
 def allPosts(type):
     print('All Posts...')
     if request.method == 'GET':

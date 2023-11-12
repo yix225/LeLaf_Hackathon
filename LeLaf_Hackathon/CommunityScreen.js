@@ -4,6 +4,15 @@ import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'rea
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
+// axios.get('http://172.20.10.7:3000/allPosts/' + item.path)
+//           .then(response => {
+//             console.log('Response:', response.data);
+//           })
+//           .catch(error => {
+//             console.log(error.response.data);
+//           })
+          
+
 //navigation.navigate('Post')
 
 
@@ -112,6 +121,7 @@ const CommunityScreen = ({ navigation }) => {
         <TouchableOpacity
         style={styles.item}
         onPress={() => 
+          
           axios.get('http://172.20.10.7:3000/allPosts/' + item.path)
           .then(response => {
             console.log('Response:', response.data);
@@ -119,8 +129,6 @@ const CommunityScreen = ({ navigation }) => {
           .catch(error => {
             console.log(error.response.data);
           })
-          
-
 
         }
         
