@@ -8,7 +8,7 @@ import SignupScreen from './SignupScreen'; // Replace with the actual name of yo
 import AvatarScreen from './AvatarScreen'; // Replace with the actual name of your other screen component
 import CommunityScreen from './CommunityScreen'; // Replace with the actual name of your other screen component
 import PostScreen from './PostScreen'; // Replace with the actual name of your other screen component
-
+import ProfileScreen from './ProfileScreen'; // Replace with the actual name of your other screen component
 
 
 
@@ -24,6 +24,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Avatar" component={AvatarScreen} />
         <Stack.Screen name="Communities" component={CommunityScreen} />
         <Stack.Screen name="Post" component={PostScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

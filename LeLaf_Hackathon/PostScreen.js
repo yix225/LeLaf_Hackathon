@@ -1,9 +1,16 @@
 // Users can click + button to add a new post within this community
 //Modal is entrybox for post when creating a ppost and '+' sign
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity} from 'react-native';
+import { Avatar } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
+
+const baseUrl = 'https://api.multiavatar.com/';
+
+
 
 const PostScreen = () => {
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
@@ -35,6 +42,21 @@ const PostScreen = () => {
       >
       <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.addButton}
+       onPress={() => setModalVisible(true)}
+      >
+      <Text style={styles.buttonText}></Text>
+      </TouchableOpacity>
+      <Avatar
+        size="medium"
+        rounded
+        
+        source={{
+          uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
+        
+        onPress={() => navigation.navigate('Profile')}
+        containerStyle={{left:180,marginBottom:800}}
+      />
     </View>
   );
 };
@@ -77,7 +99,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     padding:35,
     alignItems: 'center',
     shadowColor: '#000',
