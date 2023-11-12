@@ -1,6 +1,6 @@
 // SignupScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text,ImageBackground } from 'react-native';
 import axios from 'axios';
 
 const SERVER_URL = 'http://172.20.10.2:3000'; // Replace with your Flask server URL
@@ -13,11 +13,13 @@ const SignupScreen = ({ navigation }) => {
   const handleSignup = async () => {
       console.log(username);
       console.log(password);
-      axios.post('http://172.20.10.11:3000/signup', {
+      axios.post('http://172.20.10.2:3000/signup', {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
-          
+          <View>
+            <Text>"Successfully made an account!"</Text>
+          </View>
           console.log(response);
       })
       .catch(function (error) {
@@ -26,6 +28,9 @@ const SignupScreen = ({ navigation }) => {
   };
 
   return (
+    <ImageBackground 
+    source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/bg.png')}
+    style={styles.container}>
     <View style={styles.container}>
       <TextInput
         style={styles.input}
@@ -41,9 +46,10 @@ const SignupScreen = ({ navigation }) => {
         onChangeText={(text) => setPassword(text)}
       />
       <Button title="Sign Up" onPress={handleSignup} color='#300040'/>
-      <Text>{message}</Text>
       <Button title="Go to Login" onPress={() => navigation.navigate('Login')}color='#300040' />
     </View>
+    </ImageBackground>
+
   );
 };
 

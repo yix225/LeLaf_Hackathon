@@ -1,6 +1,6 @@
 // LoginScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Image,FlatList} from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Image,FlatList,ImageBackground} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar } from 'react-native-elements';
@@ -46,7 +46,7 @@ const ProfileScreen = ({}) => {
   const fetchProfile = async () => {
     try {
       // Replace this with your actual logic to fetch posts from an API
-      const response = await fetch('http://172.20.10.11:3000/pofile/');
+      const response = await fetch('http://172.20.10.11:3000/profile/');
       console.log('response');
       console.log(response);
       const data = await response.json();
@@ -66,6 +66,8 @@ const ProfileScreen = ({}) => {
 
     
   return (
+    <ImageBackground source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/icon1.png')}
+    style={styles.container}>
     <View style={styles.container}>
     <ScrollView style={styles.scrollView}>
       {renderProfile()}
@@ -95,9 +97,10 @@ const ProfileScreen = ({}) => {
         source={{
           uri: baseUrl + global.USER + ".png" + "?apikey=NsZCLftT1y67Ex"}}
         
-         containerStyle={{left:110,marginBottom:1250}}
+         containerStyle={{left:0,marginBottom:1000}}
         />
     </View>
+    </ImageBackground>
   );
 };
 

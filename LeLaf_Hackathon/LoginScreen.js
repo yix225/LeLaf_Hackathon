@@ -1,11 +1,11 @@
 // LoginScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Image} from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Image,ImageBackground} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
-const SERVER_URL = 'http://172.20.10.11:3000'; // Replace with your Flask server URL
+const SERVER_URL = 'http://172.20.10.2:3000'; // Replace with your Flask server URL
 const baseUrl = 'https://api.multiavatar.com/';
 
 
@@ -19,7 +19,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {   
       console.log(username);
       console.log(password);
-      axios.post('http://172.20.10.11:3000/login', {
+      axios.post('http://172.20.10.2:3000/login', {
         username:username, password:password
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
@@ -33,6 +33,9 @@ const LoginScreen = () => {
   };
 
   return (
+    <ImageBackground 
+    source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/bg.png')}
+    style={styles.container}>
     <View style={styles.container}>
       <Image
         source={{ uri: baseUrl + username + ".png" + "?apikey=NsZCLftT1y67Ex"}}
@@ -54,6 +57,7 @@ const LoginScreen = () => {
       <Button title="Login" onPress={handleLogin} color='#300040'/>
       <Text>{message}</Text>
     </View>
+    </ImageBackground>
   );
 };
 

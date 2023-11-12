@@ -1199,6 +1199,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/dancing-script@^0.2.3":
+  "integrity" "sha512-W92/z1/T7jD0GM7/uSr4QFUW1n3QEHfvM7kBIQzJtqYnLC9egMncGdcWpb1dhKAsIzwH/LvLKB9i/9Uoc28NEg=="
+  "resolved" "https://registry.npmjs.org/@expo-google-fonts/dancing-script/-/dancing-script-0.2.3.tgz"
+  "version" "0.2.3"
+
 "@expo/bunyan@^4.0.0", "@expo/bunyan@4.0.0":
   "integrity" "sha512-Ydf4LidRB/EBI+YrB+cVLqIseiRfjUI/AeHBgjGMtq3GroraDu81OV7zqophRgupngoL3iS3JUMDMnxO7g39qA=="
   "resolved" "https://registry.npmjs.org/@expo/bunyan/-/bunyan-4.0.0.tgz"
@@ -3622,6 +3627,13 @@
   "version" "15.4.4"
   dependencies:
     "uuid" "^3.4.0"
+
+"expo-font@^11.6.0":
+  "integrity" "sha512-ekfU0MN7vzJNGwQCJhxnhF2M9Fq/RtVF5xSQpr8+f4ISPimmKfEcArMHKCl4oG3saFVjSRX7fLbo38WOv3z5Mw=="
+  "resolved" "https://registry.npmjs.org/expo-font/-/expo-font-11.6.0.tgz"
+  "version" "11.6.0"
+  dependencies:
+    "fontfaceobserver" "^2.1.0"
 
 "expo-font@~11.4.0":
   "integrity" "sha512-nkmezCFD7gR/I6R+e3/ry18uEfF8uYrr6h+PdBJu+3dawoLOpo+wFb/RG9bHUekU1/cPanR58LR7G5MEMKHR2w=="

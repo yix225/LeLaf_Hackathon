@@ -1,9 +1,12 @@
 // HomeScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet,ImageBackground } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
   return (
+    <ImageBackground 
+      source={require('/Users/athens/LeLaf_Hackathon/LeLaf_Hackathon/bg.png')}
+      style={styles.container}>
     <View style={styles.container}>
       <Text style={styles.title}>Connected</Text>
       <TouchableOpacity
@@ -19,6 +22,7 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Go to Community Screen</Text>
       </TouchableOpacity>
     </View>
+      </ImageBackground>
   );
 };
 
