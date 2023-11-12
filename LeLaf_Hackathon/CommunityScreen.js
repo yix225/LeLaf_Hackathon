@@ -2,12 +2,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, StatusBar, TouchableOpacity } from 'react-native';
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
+
+
+
+// axios.get('https://172.20.10.7/allPosts/' + item.title)
+//           .then(response => {
+//             console.log('Response:', response.data);
+//           })
+//           .catch(error => {
+//             console.error('Error:', error);
+//           })
 
 
 const DATA = [
   {
     id: '0',
-    title: 'Family',
+    title: 'family',
   },
   {
     id: '1',
@@ -78,6 +89,7 @@ const Item = ({title}) => (
 );
 
 const CommunityScreen = ({ navigation }) => {
+  
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -87,7 +99,12 @@ const CommunityScreen = ({ navigation }) => {
         renderItem={({item}) => 
         <TouchableOpacity
         style={styles.item}
-        onPress={() => navigation.navigate('Post')}>
+        onPress={() => 
+          navigation.navigate('Post')
+        }
+        
+        
+        >
        
       
 
