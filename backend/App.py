@@ -277,6 +277,7 @@ def login():
             # print('Logged in..')
             login_user(user_obj)
             # redirect to home page if login successful
+            # return redirect(url_for('profile'))
             return redirect(url_for('allPosts', type='all'))
         else:
             return abort(401)

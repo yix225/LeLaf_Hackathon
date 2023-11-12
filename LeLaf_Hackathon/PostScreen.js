@@ -2,8 +2,9 @@
 //Show community name at the top
 //Modal is entrybox for post when creating a ppost and '+' sign
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Modal, Pressable, TouchableOpacity} from 'react-native';
 import { Avatar } from 'react-native-elements';
+import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 const baseUrl = 'https://api.multiavatar.com/';
@@ -18,7 +19,7 @@ const PostScreen = () => {
   const handlePost = async () => {   
       console.log(postText);
       
-      axios.post('http://172.20.10.7:3000/addPost/<type>', {
+      axios.post('http://172.20.10.11:3000/addPost/All', {
         postText:postText
       },{ headers: { 'Content-Type': 'application/json' } })
       .then(function (response) {
@@ -46,7 +47,7 @@ const PostScreen = () => {
              <TextInput
                 style={styles.input}
                 placeholder="New Post..."
-                value={post}
+                value={postText}
                 onChangeText={(text) => setPostText(text)}
               />
             <Button title= 'Post' onPress={handlePost}  />
