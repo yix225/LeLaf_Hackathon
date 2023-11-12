@@ -163,12 +163,13 @@ const styles = StyleSheet.create({
     
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: '#CF9FFF',
+    borderRadius: 10,
     height: 150,
     justifyContent: 'center',
     marginVertical: 8,
     marginHorizontal: 16,
-    padding: 0,
+    padding: 16,
   },
 
 communityName:{
