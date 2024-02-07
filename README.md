@@ -3,14 +3,19 @@
 # Project Name
 
 Connected
+
 Our inspiration for "Connected" stems from the growing need for a safe and supportive space for individuals to connect, share, and support each other's mental health journeys.
 
 # Project Member
 
 JunYi Pan
+
 Yinuo Xu
+
 Anthens Cai
+
 Papa Kofi Asibuo
+
 
 ## Table of Contents
 
