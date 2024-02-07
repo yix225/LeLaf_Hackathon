@@ -8,13 +8,13 @@ Our inspiration for "Connected" stems from the growing need for a safe and suppo
 
 # Project Member
 
-JunYi Pan
+JunYi Pan - jup324@lehgih.edu
 
-Yinuo Xu
+Yinuo Xu - yix225@lehigh.edu
 
-Anthens Cai
+Anthens Cai - atc224@lehigh.edu
 
-Papa Kofi Asibuo
+Papa Kofi Asibuo - pka224@lehigh.edu
 
 
 ## Table of Contents
